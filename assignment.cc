@@ -62,15 +62,15 @@ void Assignment::output(ostream& outs)const{
 }
 
 unsigned Assignment::minutes_til_due()const{
-	unsigned nowminutes = time(NULL) / 60;
-	nowminutes -= 1020;
-    return nowminutes - due.minutes_since_1970();
+    DateTime now;
+    now.make_now();
+    return due.minutes_since_1970() - now.minutes_since_1970();
 }
 
 unsigned Assignment::minutes_waiting()const{
-	unsigned nowminutes = time(NULL) / 60;
-	nowminutes -= 1020;
-    return nowminutes - entered.minutes_since_1970();
+    DateTime now;
+    now.make_now();
+    return now.minutes_since_1970() - entered.minutes_since_1970();
 }
 
 void convert_minutes(unsigned minutes){

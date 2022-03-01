@@ -78,11 +78,18 @@ int main(){
 			case '4':
 				cout << "\nNumber of assignments waiting to be completed = " << homework.waiting() << endl << endl;
 				break;
-			case '5':
-				cout << "\nThe assignment due next is due in ";
-				convert_minutes(homework.due_next());
-				cout << endl << endl;
+			case '5':{
+				unsigned due = homework.due_next();
+				if(due == 0){
+					cout << "\nThe next assignment you need to complete is past due.\n\n";
+				}
+				else{
+					cout << "\nThe assignment due next is due in ";
+					convert_minutes(due);
+					cout << endl << endl;
+				}
 				break;
+			}
 			case '6':
 				cout << "\nThe average wait time of all assignments is : ";
 				convert_minutes(homework.average_wait());
