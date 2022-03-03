@@ -1,11 +1,17 @@
 #include "planner.h"
 
 Planner::Planner() {
-
+    head = tail = NULL;
+    nodecount = 0;
 }
 
 Planner::~Planner() {
-
+    node* previous;
+    while (head != NULL) {
+        previous = head;
+        head = head -> link();
+        delete previous;
+    }
 }
 
 Planner::Planner(const Planner& other) {
