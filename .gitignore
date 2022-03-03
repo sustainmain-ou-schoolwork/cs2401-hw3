@@ -2,6 +2,9 @@
 *.json
 .vscode
 
+# Testing
+test
+
 # CMake files
 
 # Debug information
