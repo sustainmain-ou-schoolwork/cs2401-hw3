@@ -39,6 +39,13 @@ class Planner {
         void add(const node& item);
 
         /**
+         * @brief Adds an item to the end of the list.
+         * 
+         * @param item the item to be added
+         */
+        void add_end(const node& item);
+
+        /**
          * @brief Remove the first Assignment that matches a given name.
          * 
          * @param name the name to check the Assignments against

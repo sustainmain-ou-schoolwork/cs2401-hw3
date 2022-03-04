@@ -1,4 +1,5 @@
 #include "planner.h"
+#include "node.h"
 
 Planner::Planner() {
     head = tail = NULL;
@@ -23,8 +24,40 @@ void Planner::operator = (const Planner& other) {
 }
 
 
-void Planner::add(const node& item) {
+void Planner::add_end(const node& item) {
+    // if list is empty
+    if (head == NULL) {
+        head = tail = new node(item.data());
+    }
+    else {
+        tail -> set_link(new node(item.data()));
+        tail = tail -> link();
+    }
+}
 
+void Planner::add(const node& item) {
+    node* cursor = head;
+    node* previous;
+
+    // if list is empty
+    if (cursor == NULL) {
+        add_end(item);
+    }
+    else {
+        // run through the list until the cursor points at a greater value or the last node
+        while (cursor -> link() != NULL && cursor -> data() <= item.data()) {
+            previous = cursor;
+            cursor = cursor -> link();
+        }
+
+        // if cursor is pointing at the last node
+        if (cursor -> link() == NULL) {
+            add_end(item);
+        }
+        else {
+            previous -> set_link(new node(item.data(), cursor));
+        }
+    }
 }
 
 void Planner::remove(const std::string& name) const {
@@ -64,7 +97,13 @@ Assignment Planner::find(const std::string& name) const {
 
 
 void Planner::display(std::ostream& outs) const {
+    node* cursor = head;
 
+    while (cursor != NULL) {
+        outs << cursor -> data() << '\n';
+
+        cursor = cursor -> link();
+    }
 }
 
 void Planner::find_all(DateTime due_date) const {
