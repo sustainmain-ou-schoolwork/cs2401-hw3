@@ -37,22 +37,26 @@ void Planner::add_end(const node& item) {
 
 void Planner::add(const node& item) {
     node* cursor = head;
-    node* previous;
+    node* previous = NULL;
 
     // if list is empty
     if (cursor == NULL) {
         add_end(item);
     }
     else {
-        // run through the list until the cursor points at a greater value or the last node
-        while (cursor -> link() != NULL && cursor -> data() <= item.data()) {
+        // run through the list until the cursor points at the last node or a node with a greater value
+        while (cursor != NULL && cursor -> data() <= item.data()) {
             previous = cursor;
             cursor = cursor -> link();
         }
 
-        // if cursor is pointing at the last node
-        if (cursor -> link() == NULL) {
+        if (cursor == NULL) {
+            // passed through the whole list
             add_end(item);
+        }
+        else if (previous == NULL) {
+            // cursor pointing at first node
+            head = new node(item.data(), cursor);
         }
         else {
             previous -> set_link(new node(item.data(), cursor));
