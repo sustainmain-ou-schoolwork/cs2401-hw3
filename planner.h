@@ -50,7 +50,7 @@ class Planner {
          * 
          * @param name the name to check the Assignments against
          */
-        void remove(const std::string& name) const;
+        void remove(const std::string& name);
 
 
         /**

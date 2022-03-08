@@ -45,7 +45,7 @@ void Planner::add(const node& item) {
     }
     else {
         // run through the list until the cursor points at the last node or a node with a greater value
-        while (cursor != NULL && cursor -> data() <= item.data()) {
+        while ((cursor != NULL) && (cursor -> data() <= item.data())) {
             previous = cursor;
             cursor = cursor -> link();
         }
@@ -64,8 +64,33 @@ void Planner::add(const node& item) {
     }
 }
 
-void Planner::remove(const std::string& name) const {
+void Planner::remove(const std::string& name) {
+    node* cursor = head;
+    node* previous = NULL;
 
+    // run through the list until the cursor points at NULL or the target node
+    while ((cursor != NULL) && (cursor -> data().get_name() != name)) {
+        previous = cursor;
+        cursor = cursor -> link();
+    }
+
+    // if the target node was found, remove it
+    if (cursor != NULL) {
+        // if the target node is the first node
+        if (head == cursor) {
+            head = head -> link();
+        }
+        else {
+            previous -> set_link(cursor -> link());
+        }
+
+        // if the target node was the last node
+        if (tail == cursor) {
+            tail = previous;
+        }
+
+        delete cursor;
+    }
 }
 
 
