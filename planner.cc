@@ -13,10 +13,22 @@ Planner::~Planner() {
         head = head -> link();
         delete previous;
     }
+
+    nodecount = 0;
 }
 
 Planner::Planner(const Planner& other) {
+    head = tail = NULL;
+    nodecount = 0;
 
+    node* cursor = other.head;
+    node tmp;
+
+    while (cursor != NULL) {
+        tmp = node(cursor -> data());
+        add_end(tmp);
+        cursor = cursor -> link();
+    }
 }
 
 void Planner::operator = (const Planner& other) {
@@ -33,6 +45,8 @@ void Planner::add_end(const node& item) {
         tail -> set_link(new node(item.data()));
         tail = tail -> link();
     }
+
+    nodecount++;
 }
 
 void Planner::add(const node& item) {
@@ -57,9 +71,11 @@ void Planner::add(const node& item) {
         else if (previous == NULL) {
             // cursor pointing at first node
             head = new node(item.data(), cursor);
+            nodecount++;
         }
         else {
             previous -> set_link(new node(item.data(), cursor));
+            nodecount++;
         }
     }
 }
@@ -90,6 +106,7 @@ void Planner::remove(const std::string& name) {
         }
 
         delete cursor;
+        nodecount--;
     }
 }
 

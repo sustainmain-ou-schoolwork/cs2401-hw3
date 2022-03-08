@@ -29,14 +29,20 @@ void test(Planner& p, int testNum);
 
 
 int main(int argc, char const *argv[]) {
-	const int TEST_NUM = atoi(argv[1]);
-	Planner p;
+	if (argc > 1) {
+		const int TEST_NUM = atoi(argv[1]);
+		Planner p;
 
-	cout << "===== TEST #" << TEST_NUM << " =====" << endl;
-	test(p, TEST_NUM);
+		cout << "===== TEST #" << TEST_NUM << " =====" << endl;
+		test(p, TEST_NUM);
 
 
-    return EXIT_SUCCESS;
+		return EXIT_SUCCESS;
+	}
+	else {
+		cout << "Include the test number as the second parameter." << endl;
+		return EXIT_FAILURE;
+	}
 }
 
 
@@ -67,7 +73,6 @@ void test(Planner& p, int testNum) {
 			cin >> a;
 			cin.ignore();  // remove extra newline
 
-			p.display(cout);
 			p.add(a);
 			p.display(cout);
 			break;
@@ -127,6 +132,18 @@ void test(Planner& p, int testNum) {
 			pause("check memory usage and press enter when done: ");
 			cout << "continuing..." << endl;
 			p.display(cout);
+			break;
+		case 8:
+			// test: add 1 assignment to the planner and copy it
+			cin >> a;
+			cin.ignore();  // remove extra newline
+
+			Planner p2(p);
+			p2.display(cout);
+			p.add(a);
+
+			Planner p3(p);
+			p3.display(cout);
 			break;
 	}
 }
