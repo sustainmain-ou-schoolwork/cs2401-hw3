@@ -60,6 +60,7 @@ void clearNewlines(istream& ins) {
 
 void test(Planner& p, int testNum) {
 	Assignment a, b, c;
+	Planner p2, p3;
 
 	switch (testNum) {
 		case 1:
@@ -138,12 +139,41 @@ void test(Planner& p, int testNum) {
 			cin >> a;
 			cin.ignore();  // remove extra newline
 
-			Planner p2(p);
+			p2 = Planner(p);
+			p2.display(cout);
+
+			p.add(a);
+			p3 = Planner(p);
+			p3.display(cout);
+			break;
+		case 9:
+			// test: use = operator
+			cin >> a;
+			cin.ignore();  // remove extra newline
+
+			p2 = p;
+			cout << "first run (should be empty)" << endl;
 			p2.display(cout);
 			p.add(a);
 
-			Planner p3(p);
-			p3.display(cout);
+			p2 = p;
+			cout << "second run (should have 1 entry)" << endl;
+			p2.display(cout);
 			break;
+		case 10:
+			// test: check memory usage before adding nodes to p, after adding nodes to p, and after setting new p using = operator
+			pause("check memory usage and press enter when done: ");
+			cout << "continuing..." << endl;
+
+			for(int i = 0; i < 10000; i++) {
+				p.add(a);
+			}
+			pause("check memory usage and press enter when done: ");
+			cout << "continuing..." << endl;
+
+			p = p2;
+			pause("check memory usage and press enter when done: ");
+			cout << "continuing..." << endl;
+			p.display(cout);
 	}
 }

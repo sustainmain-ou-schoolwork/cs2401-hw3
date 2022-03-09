@@ -32,7 +32,28 @@ Planner::Planner(const Planner& other) {
 }
 
 void Planner::operator = (const Planner& other) {
+    if (this == &other) {
+        return;
+    }
 
+    // delete all nodes
+    node* previous;
+    while (head != NULL) {
+        previous = head;
+        head = head -> link();
+        delete previous;
+    }
+    head = tail = NULL;
+    nodecount = 0;
+
+    // copy all the nodes from other
+    node* cursor = other.head;
+    node tmp;
+    while (cursor != NULL) {
+        tmp = node(cursor -> data());
+        add_end(tmp);
+        cursor = cursor -> link();
+    }
 }
 
 
