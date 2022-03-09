@@ -133,8 +133,12 @@ void Planner::remove(const std::string& name) {
 
 
 unsigned int Planner::due_next() const {
-    // TODO
-    return 0;
+    if (head == NULL) {
+        return 0;
+    }
+    else {
+        return head -> data().get_due().minutes_since_1970();
+    }
 }
 
 unsigned int Planner::average_wait() const {

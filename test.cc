@@ -175,5 +175,14 @@ void test(Planner& p, int testNum) {
 			pause("check memory usage and press enter when done: ");
 			cout << "continuing..." << endl;
 			p.display(cout);
+			break;
+		case 11:
+			// test: add two assignments and print due_next
+			cin >> a;
+			cin >> b;
+			p.add(a);
+			p.add(b);
+			cout << p.due_next() << endl;
+			break;
 	}
 }
