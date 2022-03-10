@@ -193,7 +193,7 @@ unsigned int Planner::newest() const {
         return 0;
     }
 
-    newest = newest = cursor -> data().minutes_waiting();
+    newest = cursor -> data().minutes_waiting();
     cursor = cursor -> link();
     
     while (cursor != NULL) {
@@ -261,7 +261,13 @@ void Planner::load(std::istream& ins) {
 }
 
 void Planner::save(std::ostream& outs) const {
+    node* cursor = head;
 
+    while (cursor != NULL) {
+        outs << cursor -> data();
+
+        cursor = cursor -> link();
+    }
 }
 
 
