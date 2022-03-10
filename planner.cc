@@ -133,17 +133,33 @@ void Planner::remove(const std::string& name) {
 
 
 unsigned int Planner::due_next() const {
+    DateTime now;
     if (head == NULL) {
         return 0;
     }
     else {
-        return head -> data().get_due().minutes_since_1970();
+        // check if the assignment is past due
+        now.make_now();
+        if (now < head -> data().get_due()) {
+            return head -> data().minutes_til_due();
+        }
+        else {
+            return 0;
+        }
     }
 }
 
-unsigned int Planner::average_wait() const {
-    // TODO
-    return 0;
+double Planner::average_wait() const {
+    node* cursor = head;
+    unsigned int totalWait = 0;
+
+    // add the wait times of each assignment
+    while (cursor != NULL) {
+        totalWait += cursor -> data().minutes_waiting();
+        cursor = cursor -> link();
+    }
+
+    return static_cast<double>(totalWait) / static_cast<double>(nodecount);
 }
 
 unsigned int Planner::waiting() const {

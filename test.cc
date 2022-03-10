@@ -184,5 +184,13 @@ void test(Planner& p, int testNum) {
 			p.add(b);
 			cout << p.due_next() << endl;
 			break;
+		case 12:
+			// test: add two assignments and print average_wait
+			cin >> a;
+			cin >> b;
+			p.add(a);
+			p.add(b);
+			cout << p.average_wait() << endl;
+			break;
 	}
 }

@@ -65,7 +65,7 @@ class Planner {
          * 
          * @return the average wait time of all assignments
          */
-        unsigned int average_wait() const;
+        double average_wait() const;
 
         /**
          * @brief Returns the number of assignments that are still waiting to be completed.
