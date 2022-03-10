@@ -134,6 +134,8 @@ void Planner::remove(const std::string& name) {
 
 unsigned int Planner::due_next() const {
     DateTime now;
+
+    // if list is empty
     if (head == NULL) {
         return 0;
     }
@@ -175,8 +177,9 @@ unsigned int Planner::oldest() const {
         return 0;
     }
 
+    // run through the whole list
     while (cursor != NULL) {
-        if (cursor -> data().minutes_waiting() > oldest) {
+        if ((cursor -> data().minutes_waiting()) > oldest) {
             oldest = cursor -> data().minutes_waiting();
         }
         cursor = cursor -> link();
@@ -195,9 +198,10 @@ unsigned int Planner::newest() const {
 
     newest = cursor -> data().minutes_waiting();
     cursor = cursor -> link();
-    
+
+    // run through the whole list
     while (cursor != NULL) {
-        if (cursor -> data().minutes_waiting() < newest) {
+        if ((cursor -> data().minutes_waiting()) < newest) {
             newest = cursor -> data().minutes_waiting();
         }
         cursor = cursor -> link();
@@ -212,9 +216,10 @@ Assignment Planner::find(const std::string& name) const {
     if (cursor == NULL) {
         return Assignment();
     }
-    
+
+    // run through the list until cursor points to an Assigment with a matching name
     while (cursor != NULL) {
-        if (cursor -> data().get_name() == name) {
+        if ((cursor -> data().get_name()) == name) {
             return cursor -> data();
         }
         cursor = cursor -> link();
@@ -237,8 +242,10 @@ void Planner::display(std::ostream& outs) const {
 void Planner::find_all(DateTime due_date) const {
     node* cursor = head;
 
+    // run through the list until an assignment that is due after due_date is found
     while (cursor != NULL) {
         if (due_date < cursor -> data().get_due()) {
+            // output the assignment
             std::cout << cursor -> data() << '\n';
         }
         else {
