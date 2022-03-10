@@ -130,6 +130,8 @@ class Planner {
         node* head;              // pointer to the head of the list
         node* tail;              // pointer to the tail of the list
         unsigned int nodecount;  // number of nodes stored in the list
+
+        void clearNewlines(std::istream& ins) const;
 };
 
 #endif

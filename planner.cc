@@ -252,9 +252,21 @@ void Planner::find_all(DateTime due_date) const {
 
 
 void Planner::load(std::istream& ins) {
-
+    Assignment tmp;
+    while (!ins.eof()) {
+        ins >> tmp;
+        add(tmp);
+        clearNewlines(ins);
+    }
 }
 
 void Planner::save(std::ostream& outs) const {
 
+}
+
+
+void Planner::clearNewlines(std::istream& ins) const {
+    while (ins.peek() == '\n' || ins.peek() == '\r') {
+        ins.ignore();
+    }
 }
