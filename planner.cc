@@ -170,6 +170,7 @@ unsigned int Planner::oldest() const {
     node* cursor = head;
     unsigned int oldest = 0;
 
+    // if list is empty
     if (cursor == NULL) {
         return 0;
     }
@@ -187,6 +188,7 @@ unsigned int Planner::newest() const {
     node* cursor = head;
     unsigned int newest;
 
+    // if list is empty
     if (cursor == NULL) {
         return 0;
     }
@@ -206,6 +208,7 @@ unsigned int Planner::newest() const {
 Assignment Planner::find(const std::string& name) const {
     node* cursor = head;
 
+    // if list is empty
     if (cursor == NULL) {
         return Assignment();
     }
@@ -232,7 +235,19 @@ void Planner::display(std::ostream& outs) const {
 }
 
 void Planner::find_all(DateTime due_date) const {
+    node* cursor = head;
 
+    while (cursor != NULL) {
+        if (due_date < cursor -> data().get_due()) {
+            std::cout << cursor -> data() << '\n';
+        }
+        else {
+            // the last assignment due before due_date has already been reached
+            return;
+        }
+
+        cursor = cursor -> link();
+    }
 }
 
 
