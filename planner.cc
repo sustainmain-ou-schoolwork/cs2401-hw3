@@ -163,13 +163,25 @@ double Planner::average_wait() const {
 }
 
 unsigned int Planner::waiting() const {
-    // TODO
-    return 0;
+    return nodecount;
 }
 
 unsigned int Planner::oldest() const {
-    // TODO
-    return 0;
+    node* cursor = head;
+    unsigned int oldest = 0;
+
+    if (cursor == NULL) {
+        return 0;
+    }
+    else {
+        while (cursor != NULL) {
+            if (cursor -> data().minutes_waiting() > oldest) {
+                oldest = cursor -> data().minutes_waiting();
+            }
+            cursor = cursor -> link();
+        }
+        return oldest;
+    }
 }
 
 unsigned int Planner::newest() const {
