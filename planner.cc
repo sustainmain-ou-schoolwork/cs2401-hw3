@@ -173,15 +173,14 @@ unsigned int Planner::oldest() const {
     if (cursor == NULL) {
         return 0;
     }
-    else {
-        while (cursor != NULL) {
-            if (cursor -> data().minutes_waiting() > oldest) {
-                oldest = cursor -> data().minutes_waiting();
-            }
-            cursor = cursor -> link();
+
+    while (cursor != NULL) {
+        if (cursor -> data().minutes_waiting() > oldest) {
+            oldest = cursor -> data().minutes_waiting();
         }
-        return oldest;
+        cursor = cursor -> link();
     }
+    return oldest;
 }
 
 unsigned int Planner::newest() const {
@@ -191,22 +190,33 @@ unsigned int Planner::newest() const {
     if (cursor == NULL) {
         return 0;
     }
-    else {
-        newest = newest = cursor -> data().minutes_waiting();
-        cursor = cursor -> link();
-        
-        while (cursor != NULL) {
-            if (cursor -> data().minutes_waiting() < newest) {
-                newest = cursor -> data().minutes_waiting();
-            }
-            cursor = cursor -> link();
+
+    newest = newest = cursor -> data().minutes_waiting();
+    cursor = cursor -> link();
+    
+    while (cursor != NULL) {
+        if (cursor -> data().minutes_waiting() < newest) {
+            newest = cursor -> data().minutes_waiting();
         }
-        return newest;
+        cursor = cursor -> link();
     }
+    return newest;
 }
 
 Assignment Planner::find(const std::string& name) const {
-    // TODO
+    node* cursor = head;
+
+    if (cursor == NULL) {
+        return Assignment();
+    }
+    
+    while (cursor != NULL) {
+        if (cursor -> data().get_name() == name) {
+            return cursor -> data();
+        }
+        cursor = cursor -> link();
+    }
+
     return Assignment();
 }
 
