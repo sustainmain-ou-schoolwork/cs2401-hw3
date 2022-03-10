@@ -185,8 +185,24 @@ unsigned int Planner::oldest() const {
 }
 
 unsigned int Planner::newest() const {
-    // TODO
-    return 0;
+    node* cursor = head;
+    unsigned int newest;
+
+    if (cursor == NULL) {
+        return 0;
+    }
+    else {
+        newest = newest = cursor -> data().minutes_waiting();
+        cursor = cursor -> link();
+        
+        while (cursor != NULL) {
+            if (cursor -> data().minutes_waiting() < newest) {
+                newest = cursor -> data().minutes_waiting();
+            }
+            cursor = cursor -> link();
+        }
+        return newest;
+    }
 }
 
 Assignment Planner::find(const std::string& name) const {
