@@ -131,6 +131,11 @@ class Planner {
         node* tail;              // pointer to the tail of the list
         unsigned int nodecount;  // number of nodes stored in the list
 
+        /**
+         * @brief Clears out any newline characters at the beginning of the stream
+         * 
+         * @param ins the stream to be cleared of newlines
+         */
         void clearNewlines(std::istream& ins) const;
 };
 
